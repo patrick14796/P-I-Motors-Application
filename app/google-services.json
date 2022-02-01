@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "715197413414",
+    "firebase_url": "https://p-i-motors-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "p-i-motors",
+    "storage_bucket": "p-i-motors.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715197413414:android:46c28daf175f18e10acee7",
+        "android_client_info": {
+          "package_name": "com.PI_Motors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715197413414-mo2fde2bkggmremqil76c73vr31nub0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAcgDgiZgzvwDr6lhNa8EPqf_e8kQvHVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715197413414-mo2fde2bkggmremqil76c73vr31nub0r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
