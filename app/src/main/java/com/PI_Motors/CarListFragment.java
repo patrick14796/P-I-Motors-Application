@@ -70,9 +70,9 @@ public class CarListFragment extends Fragment{
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            int index = new Random().nextInt(car_image.length);
-            int selected_car = car_image[index];
-            ((ImageView) CarImg.findViewById(selected_car)).setVisibility(View.VISIBLE);
+            //int index = new Random().nextInt(car_image.length);
+            //int selected_car = car_image[index];
+            //((ImageView) CarImg.findViewById(selected_car)).setVisibility(View.VISIBLE);
             CarType = itemView.findViewById(R.id.car_type);
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);
