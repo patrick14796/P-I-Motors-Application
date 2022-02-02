@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/registerbackg"
     tools:context=".RegisterUser">
 
     <TextView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="App Name"
+        android:text="Registration"
         android:textSize="60sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:fontFamily="sans-serif"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,8 +25,9 @@
         android:id="@+id/bannerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="app Description"
+        android:text="Please fill in the following details"
         android:textStyle="italic"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/banner"
@@ -32,66 +35,68 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
+
     <EditText
         android:id="@+id/fullname"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="277dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Full Name"
         android:inputType="text"
         android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bannerDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/bannerDescription" />
 
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="247dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullname"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/fullname" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="177dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword"
         android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
     <Button
         android:id="@+id/registerUser"
         android:layout_width="380dp"
         android:layout_height="70dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#0ED6B9"
+        android:layout_marginTop="184dp"
+        android:backgroundTint="#ff8000"
         android:text="Register"
         android:textColor="#ffffff"
         android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <ProgressBar
         android:id="@+id/progressBar"

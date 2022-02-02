@@ -65,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        editTextEmail.setText("");
+        editTextPassword.setText("");
+    }
+
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
