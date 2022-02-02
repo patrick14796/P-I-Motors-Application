@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-//import androidx.navigation.Navigation;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,12 +28,14 @@ import java.util.Random;
 
 public class CarListFragment extends Fragment{
     List<Car> data;
+    View view;
+    MyAdapter adapter;
     static int[] car_image = {R.id.mercedes_avatar_imv, R.id.volvo_avatar_imv,R.id.fordMustang_avatar_imv};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+        view = inflater.inflate(R.layout.fragment_car_list, container, false);
         data = Model.instance.getAllCars();
 
         RecyclerView list = view.findViewById(R.id.carlist_list_rv);
@@ -41,7 +43,7 @@ public class CarListFragment extends Fragment{
 
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter();
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -49,8 +51,10 @@ public class CarListFragment extends Fragment{
             public void onItemClick(int position, View v) {
                 Car car = data.get(position);
                 Log.d("TAG","row was clicked " + position);
-                //StudentsListFragmentDirections.ActionStudentsListFragmentToStudentDetailsFragment2 action = StudentsListFragmentDirections.actionStudentsListFragmentToStudentDetailsFragment2(st.getId());
-                //Navigation.findNavController(v).navigate(action);
+
+                CarListFragmentDirections.ActionCarListFragmentToCarDetailsFragment action = CarListFragmentDirections.actionCarListFragmentToCarDetailsFragment(car.getCar_num(),position);
+                Navigation.findNavController(v).navigate(action);
+
             }
         });
 

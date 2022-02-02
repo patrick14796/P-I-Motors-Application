@@ -9,5 +9,21 @@
         android:id="@+id/carListFragment"
         android:name="com.PI_Motors.CarListFragment"
         android:label="fragment_car_list"
-        tools:layout="@layout/fragment_car_list" />
+        tools:layout="@layout/fragment_car_list">
+        <action
+            android:id="@+id/action_carListFragment_to_carDetailsFragment"
+            app:destination="@id/carDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carDetailsFragment"
+        android:name="com.PI_Motors.CarDetailsFragment"
+        android:label="Car details"
+        tools:layout="@layout/fragment_car_details">
+        <argument
+            android:name="carId"
+            app:argType="string" />
+        <argument
+            android:name="carPosition"
+            app:argType="integer" />
+    </fragment>
 </navigation>
