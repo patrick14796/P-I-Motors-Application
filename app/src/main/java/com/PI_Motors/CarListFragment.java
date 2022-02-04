@@ -59,7 +59,7 @@ public class CarListFragment extends Fragment{
         });
 
         ImageButton addBtn = view.findViewById(R.id.cartlist_add_btn);
-        //addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(StudentsListFragmentDirections.actionGlobalAddStudentFragment()));
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(CarListFragmentDirections.actionCarListFragmentToAddCarFragment()));
 
         return view;
     }

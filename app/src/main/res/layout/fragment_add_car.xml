@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarDetailsFragment">
+    tools:context=".AddCarFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/carprice_textview"
-        android:layout_width="198dp"
-        android:layout_height="61dp"
-        android:background="@drawable/circle_textview"
-
+        android:layout_width="200dp"
+        android:layout_height="36dp"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
@@ -22,56 +20,53 @@
         android:id="@+id/textView13"
         android:layout_width="68dp"
         android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="424dp"
         android:text="Price:"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carforsale_checkbox"
-        app:layout_constraintVertical_bias="0.176"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/carloveit_checkbox"
-        android:layout_width="93dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="424dp"
-        android:background="#F8B4B4"
+        android:layout_width="94dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="40dp"
         android:text="LOVE IT"
         app:layout_constraintStart_toEndOf="@+id/cardiscount_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
         tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/cardiscount_checkbox"
         android:layout_width="93dp"
         android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="424dp"
-        android:background="#FFEE55"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="40dp"
         android:text="Discount"
-        app:layout_constraintStart_toEndOf="@+id/carfortrade_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
         tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/carfortrade_checkbox"
-        android:layout_width="80dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="424dp"
-        android:background="#7DEEFA"
+        android:layout_width="94dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="4dp"
         android:text="Trade"
+        app:layout_constraintBottom_toTopOf="@+id/carloveit_checkbox"
         app:layout_constraintStart_toEndOf="@+id/carforsale_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666"
         tools:ignore="MissingConstraints" />
 
-    <TextView
+    <EditText
         android:id="@+id/caragent_textview"
         android:layout_width="206dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Phone Number"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.326"
@@ -111,36 +106,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
+    <EditText
         android:id="@+id/carmiles_textview"
         android:layout_width="206dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Enter Car Miles"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/textView9" />
 
-    <TextView
+    <EditText
         android:id="@+id/carowner_textview"
         android:layout_width="206dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Car Ownership"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
-    <TextView
+    <EditText
         android:id="@+id/carbranch_textview"
         android:layout_width="206dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Car In Branch"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.156"
@@ -158,12 +150,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
+    <EditText
         android:id="@+id/carcapacity_textview"
         android:layout_width="206dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Engine capacity"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.888"
@@ -181,12 +172,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
+    <EditText
         android:id="@+id/cargear_textview"
         android:layout_width="234dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
-        android:text="Enter Car GearBox"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.868"
@@ -226,13 +216,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
+    <EditText
         android:id="@+id/carmodel_textview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="276dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Enter Car Model"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -252,75 +241,107 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="191dp"
-        android:layout_height="91dp"
+        android:layout_width="136dp"
+        android:layout_height="92dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/mercedes"
         app:layout_constraintDimensionRatio="9:6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="24sp"
-        android:text="Car Type:"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:id="@+id/textView6"/>
-
-    <TextView
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:textSize="24sp"
-        android:text="Enter Car Type"
         android:layout_marginStart="8dp"
-        android:id="@+id/cartype_textview"
-        app:layout_constraintTop_toTopOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintStart_toEndOf="@+id/textView6"/>
+        android:layout_marginTop="16dp"
+        android:text="Car Type:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <TextView
+    <EditText
+        android:id="@+id/cartype_textview"
+        android:layout_width="265dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+    <EditText
         android:id="@+id/carnumber_textview"
         android:layout_width="254dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Enter Car Number"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-    <TextView
+    <EditText
         android:id="@+id/caryear_textview"
         android:layout_width="254dp"
         android:layout_height="30dp"
         android:layout_marginEnd="8dp"
-        android:text="Enter Car Year"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
 
+
     <CheckBox
         android:id="@+id/carforsale_checkbox"
-        android:layout_width="69dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="424dp"
-        android:background="#00EC0B"
+        android:layout_width="93dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
         android:text="Sale"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/cardiscount_checkbox"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/main_cancel_btn"
+        android:layout_width="150dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#0ED6B9"
+        android:text="CANCEL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/main_save_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/main_save_btn"
+        android:layout_width="162dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#0ED6B9"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/main_cancel_btn" />
+
+    <ProgressBar
+        android:id="@+id/main_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="142dp"
+        android:layout_height="152dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

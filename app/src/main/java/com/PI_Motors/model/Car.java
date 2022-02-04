@@ -20,7 +20,7 @@ public class Car {
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_price, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit) {
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit) {
         this.type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
