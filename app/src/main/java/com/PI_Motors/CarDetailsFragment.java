@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.navigation.Navigation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
 
@@ -38,7 +41,7 @@ public class CarDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_car_details, container, false);
 
-
+         setHasOptionsMenu(true);
          carType = view.findViewById(R.id.cartype_textview);
          carModel = view.findViewById(R.id.carmodel_textview);
          carNumber = view.findViewById(R.id.carnumber_textview);
@@ -63,6 +66,19 @@ public class CarDetailsFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(getActivity(), "Back To Car List", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(this.getView()).navigateUp();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updateDisplay(Car car) {

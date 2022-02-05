@@ -2,9 +2,11 @@ package com.PI_Motors;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
@@ -50,7 +53,7 @@ public class AddCarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_car, container, false);
-
+        setHasOptionsMenu(true);
         carType = view.findViewById(R.id.cartype_textview);
         carModel = view.findViewById(R.id.carmodel_textview);
         carNumber = view.findViewById(R.id.carnumber_textview);
@@ -81,8 +84,8 @@ public class AddCarFragment extends Fragment {
 
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_addCarFragment_to_carListFragment));
         return view;
-
     }
+
 
     private void save() {
         progressbar.setVisibility(View.VISIBLE);
@@ -104,12 +107,25 @@ public class AddCarFragment extends Fragment {
         boolean frotrade = carfortrade.isChecked();
         boolean discount = cardiscount.isChecked();
         boolean loveit = carloveit.isChecked();
-        Log.d("TAG","saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year  + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
-        Car car = new Car(Type,model,carnumber,year,gear,engine,miles,owner,branch,agent,price,forsale,frotrade,discount,loveit);
+        Log.d("TAG", "saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
+        Car car = new Car(Type, model, carnumber, year, gear, engine, miles, owner, branch, agent, price, forsale, frotrade, discount, loveit);
         Model.instance.addCar(car);
-        Navigation.createNavigateOnClickListener(R.id.action_addCarFragment_to_carListFragment); //* To be Removed!!!!! *//
+        Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
         //Model.instance.addCar(car,()->{
-          //  Navigation.findNavController(view).navigateUp();
+        //   Navigation.findNavController(view).navigateUp();
         //});
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(getActivity(), "Back To Car List", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(this.getView()).navigateUp();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
