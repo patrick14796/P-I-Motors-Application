@@ -8,7 +8,7 @@ public class Model {
 
     private Model(){
         for(int i=0;i<3;i++){
-            Car c = new Car ("Car " + i,"Model "+i,"Car-Number "+i,"Year: 2014","Gearbox: Robotic","Engine-Capacity: 1,600","Miles: 12,000","Owner-Type: Private","Branch: Ashdod","Agent-Phone: 0546178558","     25,000$",false,false,false,false);
+            Car c = new Car ("Car " + i,"Model "+i," 55-5555-55"," 2014"," Robotic"," 1,600"," 12,000 KM"," Private"," Ashdod"," 0546178558","     25,000$",false,false,false,false);
             data.add(c);
         }
     }

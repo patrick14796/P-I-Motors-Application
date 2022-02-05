@@ -28,6 +28,9 @@
         <argument
             android:name="carPosition"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_carDetailsFragment_to_editCarFragment"
+            app:destination="@id/editCarFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCarFragment"
@@ -37,5 +40,17 @@
         <action
             android:id="@+id/action_addCarFragment_to_carListFragment"
             app:destination="@id/carListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCarFragment"
+        android:name="com.PI_Motors.EditCarFragment"
+        android:label="fragment_edit_car"
+        tools:layout="@layout/fragment_edit_car" >
+        <argument
+            android:name="car_Id"
+            app:argType="string" />
+        <argument
+            android:name="car_Position"
+            app:argType="integer" />
     </fragment>
 </navigation>

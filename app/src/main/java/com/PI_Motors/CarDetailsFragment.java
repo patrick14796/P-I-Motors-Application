@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class CarDetailsFragment extends Fragment {
     CheckBox cardiscount;
     CheckBox carloveit;
     TextView carprice;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +72,27 @@ public class CarDetailsFragment extends Fragment {
     }
 
     @Override
+    public void   onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.car_details_menu, menu);
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Toast.makeText(getActivity(), "Back To Car List", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(this.getView()).navigateUp();
+                break;
+
+            case R.id.carDetailsFragmentMenu:
+                String carId = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarId();
+                int position = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarPosition();
+                Toast.makeText(getActivity(), "Move to Edit Page", Toast.LENGTH_LONG).show();
+                CarDetailsFragmentDirections.ActionCarDetailsFragmentToEditCarFragment action = CarDetailsFragmentDirections.actionCarDetailsFragmentToEditCarFragment(carId,position);
+                Navigation.findNavController(this.getView()).navigate(action);
                 break;
             default:
                 break;
@@ -93,10 +112,10 @@ public class CarDetailsFragment extends Fragment {
         carownership.setText(car.getOwnership());
         carbarnch.setText(car.getBranch());
         caragent.setText(car.getAgent_Phonenum());
-        carforsale.setChecked(false);
-        carfortrade.setChecked(false);
-        cardiscount.setChecked(false);
-        carloveit.setChecked(false);
+        carforsale.setChecked(car.isFor_Sale());
+        carfortrade.setChecked(car.isFor_Tradein());
+        cardiscount.setChecked(car.isDiscount());
+        carloveit.setChecked(car.isLove_it());
         carprice.setText(car.getPrice());
     }
 }
