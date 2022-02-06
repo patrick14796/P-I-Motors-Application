@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Random;
 
 
-public class CarListFragment extends Fragment{
+public class
+CarListFragment extends Fragment{
     List<Car> data;
     View view;
     MyAdapter adapter;
@@ -51,7 +52,6 @@ public class CarListFragment extends Fragment{
             public void onItemClick(int position, View v) {
                 Car car = data.get(position);
                 Log.d("TAG","row was clicked " + position);
-
                 CarListFragmentDirections.ActionCarListFragmentToCarDetailsFragment action = CarListFragmentDirections.actionCarListFragmentToCarDetailsFragment(car.getCar_num(),position);
                 Navigation.findNavController(v).navigate(action);
 

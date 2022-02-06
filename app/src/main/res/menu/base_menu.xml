@@ -1,0 +1,11 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/all_posts" android:title="All Posts"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/my_posts" android:title="My Posts"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/log_out" android:title="Log Out"
+        app:showAsAction="never"/>
+</menu>

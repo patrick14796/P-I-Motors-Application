@@ -71,34 +71,6 @@ public class CarDetailsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void   onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.car_details_menu, menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                Toast.makeText(getActivity(), "Back To Car List", Toast.LENGTH_LONG).show();
-                Navigation.findNavController(this.getView()).navigateUp();
-                break;
-
-            case R.id.carDetailsFragmentMenu:
-                String carId = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarId();
-                int position = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarPosition();
-                Toast.makeText(getActivity(), "Move to Edit Page", Toast.LENGTH_LONG).show();
-                CarDetailsFragmentDirections.ActionCarDetailsFragmentToEditCarFragment action = CarDetailsFragmentDirections.actionCarDetailsFragmentToEditCarFragment(carId,position);
-                Navigation.findNavController(this.getView()).navigate(action);
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void updateDisplay(Car car) {
         this.car = car;

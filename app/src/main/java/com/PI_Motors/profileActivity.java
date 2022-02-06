@@ -7,11 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class profileActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+public class profileActivity extends AppCompatActivity {
+    FirebaseUser user;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user = FirebaseAuth.getInstance().getCurrentUser();
         setContentView(R.layout.activity_profile);
         Intent intent = new Intent(profileActivity.this,BaseActivity.class);
         startActivity(intent);
@@ -30,8 +35,8 @@ public class profileActivity extends AppCompatActivity {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
                         dialog.cancel();
+                        finish();
                     }
                 });
 

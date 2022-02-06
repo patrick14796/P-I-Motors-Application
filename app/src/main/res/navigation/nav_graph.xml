@@ -47,10 +47,10 @@
         android:label="fragment_edit_car"
         tools:layout="@layout/fragment_edit_car" >
         <argument
-            android:name="car_Id"
+            android:name="carId"
             app:argType="string" />
         <argument
-            android:name="car_Position"
+            android:name="carPosition"
             app:argType="integer" />
     </fragment>
 </navigation>
