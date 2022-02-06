@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,8 @@ public class BaseActivity extends AppCompatActivity {
 
         NavHostFragment nav_host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.base_navhost);
         navCtrl = nav_host.getNavController();
+        Intent fromProfileToBase = getIntent();
+        String userUID = fromProfileToBase.getStringExtra("userUID");
         NavigationUI.setupActionBarWithNavController(this,navCtrl);
     }
 

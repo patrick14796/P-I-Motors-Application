@@ -18,10 +18,11 @@ public class profileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         setContentView(R.layout.activity_profile);
-        Intent intent = new Intent(profileActivity.this,BaseActivity.class);
-        startActivity(intent);
-        //startActivity(new Intent(profileActivity.this,BaseActivity.class));
-
+        Intent getFromMainToProfile = getIntent();
+        String userUID = getFromMainToProfile.getStringExtra("userUID");
+        Intent fromProfileToBase = new Intent(profileActivity.this,BaseActivity.class);
+        fromProfileToBase.putExtra("userUID" , userUID );
+        startActivity(fromProfileToBase);
     }
 
     @Override

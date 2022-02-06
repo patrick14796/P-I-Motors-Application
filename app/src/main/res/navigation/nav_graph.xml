@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_addCarFragment_to_carListFragment"
             app:destination="@id/carListFragment" />
+        <argument
+            android:name="userUID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/editCarFragment"

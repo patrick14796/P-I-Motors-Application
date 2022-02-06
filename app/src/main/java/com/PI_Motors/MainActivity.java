@@ -107,7 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this,profileActivity.class));
+                    Intent fromMainToProfile = new Intent(MainActivity.this,profileActivity.class);
+                    String userUID = FirebaseAuth.getInstance().getUid();
+                    fromMainToProfile.putExtra("userUID" , userUID );
+                    startActivity(fromMainToProfile);
                     progressBar.setVisibility(View.GONE);
                 }else{
                     Toast.makeText(MainActivity.this,"Failed to login! Please check your credentials",Toast.LENGTH_LONG).show();

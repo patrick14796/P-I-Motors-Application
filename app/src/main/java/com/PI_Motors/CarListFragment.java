@@ -1,5 +1,6 @@
 package com.PI_Motors;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,13 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 import java.util.Random;
@@ -31,6 +35,7 @@ CarListFragment extends Fragment{
     List<Car> data;
     View view;
     MyAdapter adapter;
+    String userUID;
     static int[] car_image = {R.id.mercedes_avatar_imv, R.id.volvo_avatar_imv,R.id.fordMustang_avatar_imv};
 
     @Override
@@ -38,6 +43,8 @@ CarListFragment extends Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_car_list, container, false);
         data = Model.instance.getAllCars();
+        userUID = FirebaseAuth.getInstance().getUid();
+
 
         RecyclerView list = view.findViewById(R.id.carlist_list_rv);
         list.setHasFixedSize(true);
@@ -59,7 +66,7 @@ CarListFragment extends Fragment{
         });
 
         ImageButton addBtn = view.findViewById(R.id.cartlist_add_btn);
-        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(CarListFragmentDirections.actionCarListFragmentToAddCarFragment()));
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(CarListFragmentDirections.actionCarListFragmentToAddCarFragment(userUID)));
 
         return view;
     }
@@ -74,9 +81,7 @@ CarListFragment extends Fragment{
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            //int index = new Random().nextInt(car_image.length);
-            //int selected_car = car_image[index];
-            //((ImageView) CarImg.findViewById(selected_car)).setVisibility(View.VISIBLE);
+            Log.d("TAG","USERUID IS " + userUID);
             CarType = itemView.findViewById(R.id.car_type);
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);

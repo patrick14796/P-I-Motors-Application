@@ -1,5 +1,6 @@
 package com.PI_Motors;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -26,9 +27,15 @@ import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
 
 public class AddCarFragment extends Fragment {
-
+    private FirebaseAuth mAuth;
     EditText carType;
     EditText carModel;
     EditText carNumber;
@@ -48,6 +55,8 @@ public class AddCarFragment extends Fragment {
     ProgressBar progressbar;
     Button saveBtn;
     Button cancelBtn;
+    private DatabaseReference mDatabase;
+    String userUID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,17 +80,17 @@ public class AddCarFragment extends Fragment {
         carloveit = view.findViewById(R.id.carloveit_checkbox);
         progressbar = view.findViewById(R.id.main_progressbar);
         progressbar.setVisibility(View.GONE);
-
+        mDatabase = FirebaseDatabase.getInstance("https://p-i-motors-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
+        mAuth = FirebaseAuth.getInstance();
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 save();
             }
         });
-
-
+        userUID = AddCarFragmentArgs.fromBundle(getArguments()).getUserUID();
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_addCarFragment_to_carListFragment));
         return view;
     }
@@ -110,10 +119,10 @@ public class AddCarFragment extends Fragment {
         Log.d("TAG", "saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
         Car car = new Car(Type, model, carnumber, year, gear, engine, miles, owner, branch, agent, price, forsale, frotrade, discount, loveit);
         Model.instance.addCar(car);
+        FirebaseUser user1 = mAuth.getCurrentUser();
+        updateUI(user1,car);
         Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
-        //Model.instance.addCar(car,()->{
-        //   Navigation.findNavController(view).navigateUp();
-        //});
+
     }
 
     @Override
@@ -128,4 +137,17 @@ public class AddCarFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-}
+
+    public void updateUI(FirebaseUser user1, Car user){
+
+        if(user1 != null){
+            mDatabase.child("Posts").child(user1.getUid()).setValue(user);
+        //    progressBar.setVisibility(View.GONE);
+
+        }else {
+            String s = "";
+            //   progressBar.setVisibility(View.GONE);
+        }
+    }
+};
+
