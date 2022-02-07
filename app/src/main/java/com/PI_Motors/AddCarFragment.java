@@ -1,8 +1,15 @@
 package com.PI_Motors;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
@@ -19,9 +26,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,10 +40,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.squareup.picasso.Picasso;
 
 
 public class AddCarFragment extends Fragment {
+    private static final int PICK_IMAGE_REQUEST = 1;
     private FirebaseAuth mAuth;
     EditText carType;
     EditText carModel;
@@ -51,18 +61,22 @@ public class AddCarFragment extends Fragment {
     CheckBox carfortrade;
     CheckBox cardiscount;
     CheckBox carloveit;
+    Button AddImage;
     View view;
+    private Uri mImageUri;
+    private ImageView mImageView;
     ProgressBar progressbar;
     Button saveBtn;
     Button cancelBtn;
     private DatabaseReference mDatabase;
     String userUID;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_add_car, container, false);
         setHasOptionsMenu(true);
+        mImageView = view.findViewById(R.id.imageView2);
         carType = view.findViewById(R.id.cartype_textview);
         carModel = view.findViewById(R.id.carmodel_textview);
         carNumber = view.findViewById(R.id.carnumber_textview);
@@ -84,6 +98,7 @@ public class AddCarFragment extends Fragment {
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         mAuth = FirebaseAuth.getInstance();
+        AddImage = view.findViewById(R.id.uploadImage);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +107,63 @@ public class AddCarFragment extends Fragment {
         });
         userUID = AddCarFragmentArgs.fromBundle(getArguments()).getUserUID();
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_addCarFragment_to_carListFragment));
+
+        AddImage.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                openSomeActivityForResult();
+            }
+        });
+
+
         return view;
     }
+
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                        mImageUri = data.getData();
+                        Picasso.get().load(mImageUri).into(mImageView);
+                    }
+                }
+            });
+
+    public void openSomeActivityForResult() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        someActivityResultLauncher.launch(intent);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void save() {
