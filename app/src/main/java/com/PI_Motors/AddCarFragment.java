@@ -10,9 +10,11 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,16 +38,27 @@ import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 
 public class AddCarFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private FirebaseAuth mAuth;
+    private StorageTask mUploadTask;
+    private StorageReference mStorageRef;
+    private ProgressBar mProgressBar;
+
     EditText carType;
     EditText carModel;
     EditText carNumber;
@@ -63,6 +76,7 @@ public class AddCarFragment extends Fragment {
     CheckBox carloveit;
     Button AddImage;
     View view;
+
     private Uri mImageUri;
     private ImageView mImageView;
     ProgressBar progressbar;
@@ -76,6 +90,7 @@ public class AddCarFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_add_car, container, false);
         setHasOptionsMenu(true);
+        mProgressBar = view.findViewById(R.id.progress_bar);
         mImageView = view.findViewById(R.id.imageView2);
         carType = view.findViewById(R.id.cartype_textview);
         carModel = view.findViewById(R.id.carmodel_textview);
@@ -94,7 +109,8 @@ public class AddCarFragment extends Fragment {
         carloveit = view.findViewById(R.id.carloveit_checkbox);
         progressbar = view.findViewById(R.id.main_progressbar);
         progressbar.setVisibility(View.GONE);
-        mDatabase = FirebaseDatabase.getInstance("https://p-i-motors-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");;
+        mDatabase = FirebaseDatabase.getInstance("https://p-i-motors-default-rtdb.europe-west1.firebasedatabase.app/").getReference("uploads");
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         mAuth = FirebaseAuth.getInstance();
@@ -102,7 +118,7 @@ public class AddCarFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
+                uploadFile();
             }
         });
         userUID = AddCarFragmentArgs.fromBundle(getArguments()).getUserUID();
@@ -140,29 +156,11 @@ public class AddCarFragment extends Fragment {
         someActivityResultLauncher.launch(intent);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
 
 
 
@@ -193,7 +191,91 @@ public class AddCarFragment extends Fragment {
         updateUI(user1,car);
         Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
 
+
+
     }
+
+
+    private void uploadFile() {
+        if (mImageUri != null) {
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+            mUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mProgressBar.setProgress(0);
+                                }
+                            }, 500);
+                            Upload upload = new Upload("name",taskSnapshot.getUploadSessionUri().toString());
+                            String uploadId = mDatabase.push().getKey();
+                            mDatabase.child(uploadId).setValue(upload);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String s = "";
+                            // Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            mProgressBar.setProgress((int) progress);
+                        }
+                    });
+        } else {
+            String s = "";
+            //Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
