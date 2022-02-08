@@ -202,7 +202,8 @@ public class AddCarFragment extends Fragment {
                             Model.instance.addCar(car);
                             FirebaseUser user1 = mAuth.getCurrentUser();
                             if(user1 != null){
-                                mDatabase.child(user1.getUid()).setValue(car);
+                                String uploadId = mDatabase.push().getKey();
+                                mDatabase.child(user1.getUid()).child(uploadId).setValue(car);
                                 progressbar.setVisibility(View.GONE);
 
                             }else {

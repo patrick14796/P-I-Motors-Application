@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Random;
@@ -36,14 +43,19 @@ CarListFragment extends Fragment{
     View view;
     MyAdapter adapter;
     String userUID;
-    static int[] car_image = {R.id.mercedes_avatar_imv, R.id.volvo_avatar_imv,R.id.fordMustang_avatar_imv};
+    private ProgressBar mProgressCircle;
+    private DatabaseReference mDatabaseRef;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_car_list, container, false);
+        mProgressCircle = view.findViewById(R.id.progress_circle);
+
         data = Model.instance.getAllCars();
         userUID = FirebaseAuth.getInstance().getUid();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(userUID);
 
 
         RecyclerView list = view.findViewById(R.id.carlist_list_rv);
@@ -53,6 +65,40 @@ CarListFragment extends Fragment{
 
         adapter = new MyAdapter();
         list.setAdapter(adapter);
+
+
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Car car = postSnapshot.getValue(Car.class);
+
+                    Log.d("TAG","Looooooooookkkkkkkkkkkkkk hereeeeeeeeeeeeeee!!!!!!!!!!!!!!!!!" + car);
+                    data.add(car);
+                }
+
+                mProgressCircle.setVisibility(View.INVISIBLE);
+                adapter = new MyAdapter();
+                list.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                mProgressCircle.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -76,12 +122,11 @@ CarListFragment extends Fragment{
         TextView CarType;
         TextView CarModel;
         TextView CarPrice;
-        ImageView CarImg;
+
 
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            Log.d("TAG","USERUID IS " + userUID);
             CarType = itemView.findViewById(R.id.car_type);
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);
@@ -122,6 +167,7 @@ CarListFragment extends Fragment{
             holder.CarType.setText(car.getCar_Type());
             holder.CarModel.setText(car.getCar_Model());
             holder.CarPrice.setText(car.getPrice());
+
         }
 
         @Override
