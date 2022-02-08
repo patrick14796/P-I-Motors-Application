@@ -1,23 +1,23 @@
 package com.PI_Motors;
 
+import com.PI_Motors.model.Car;
+
 public class Upload {
-    private String mName;
+    private Car car;
     private String mImageUrl;
     public Upload() {
         //empty constructor needed
     }
-    public Upload(String name, String imageUrl) {
-        if (name.trim().equals("")) {
-            name = "No Name";
-        }
-        mName = name;
+    public Upload(Car car, String imageUrl) {
+
+        car = car;
         mImageUrl = imageUrl;
     }
     public String getName() {
-        return mName;
+        return car.getCar_Model();
     }
     public void setName(String name) {
-        mName = name;
+        car.set_CarModel(name);
     }
     public String getImageUrl() {
         return mImageUrl;

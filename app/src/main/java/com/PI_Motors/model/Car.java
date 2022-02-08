@@ -12,6 +12,8 @@ public class Car {
     String ownership = "";
     String Branch = "";
     String Agent_Phonenum = "";
+    private String mImageUrl;
+
 
     boolean for_Sale = false;
     boolean for_Tradein = false;
@@ -20,7 +22,7 @@ public class Car {
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit) {
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String imageUrl) {
         this.type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
@@ -36,6 +38,7 @@ public class Car {
         this.for_Tradein = car_fortrade;
         this.Discount = car_discount;
         this.Love_it = car_loveit;
+        this.mImageUrl = imageUrl;
     }
 
     public void setType(String type) {
@@ -74,7 +77,9 @@ public class Car {
     public void set_LoveIt(boolean Love_it) { this.Love_it = Love_it; }
 
 
-
+    public String getCarImageUrl() {
+        return mImageUrl;
+    }
     public String getCar_Type() {
         return type;
     }

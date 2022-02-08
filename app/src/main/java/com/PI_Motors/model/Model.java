@@ -17,10 +17,9 @@ public class Model {
     public static final Model instance = new Model();
 
     private Model(){
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 //        for(int i=0;i<3;i++){
-//            Car c = new Car ("Car " + i,"Model "+i," 55-5555-55"," 2014"," Robotic"," 1,600"," 12,000 KM"," Private"," Ashdod"," 0546178558","     25,000$",false,false,false,false);
+//            Car c = new Car ("Car " + i,"Model "+i," 55-5555-55"," 2014"," Robotic"," 1,600"," 12,000 KM"," Private"," Ashdod"," 0546178558","     25,000$",false,false,false,false,"");
 //            data.add(c);
 //        }
 

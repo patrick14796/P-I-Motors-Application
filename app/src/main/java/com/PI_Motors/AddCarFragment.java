@@ -164,38 +164,6 @@ public class AddCarFragment extends Fragment {
 
 
 
-    private void save() {
-        progressbar.setVisibility(View.VISIBLE);
-        saveBtn.setEnabled(false);
-        cancelBtn.setEnabled(false);
-
-        String Type = carType.getText().toString();
-        String model = carModel.getText().toString();
-        String carnumber = carNumber.getText().toString();
-        String year = carYear.getText().toString();
-        String gear = cargearbox.getText().toString();
-        String engine = carengine_capacity.getText().toString();
-        String miles = carmiles.getText().toString();
-        String owner = carownership.getText().toString();
-        String branch = carbarnch.getText().toString();
-        String agent = caragent.getText().toString();
-        String price = carprice.getText().toString();
-        boolean forsale = carforsale.isChecked();
-        boolean frotrade = carfortrade.isChecked();
-        boolean discount = cardiscount.isChecked();
-        boolean loveit = carloveit.isChecked();
-        Log.d("TAG", "saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
-        Car car = new Car(Type, model, carnumber, year, gear, engine, miles, owner, branch, agent, price, forsale, frotrade, discount, loveit);
-        Model.instance.addCar(car);
-        FirebaseUser user1 = mAuth.getCurrentUser();
-        updateUI(user1,car);
-        Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
-
-
-
-    }
-
-
     private void uploadFile() {
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
@@ -210,16 +178,42 @@ public class AddCarFragment extends Fragment {
                                     mProgressBar.setProgress(0);
                                 }
                             }, 500);
-                            Upload upload = new Upload("name",taskSnapshot.getUploadSessionUri().toString());
-                            String uploadId = mDatabase.push().getKey();
-                            mDatabase.child(uploadId).setValue(upload);
+                            progressbar.setVisibility(View.VISIBLE);
+                            saveBtn.setEnabled(false);
+                            cancelBtn.setEnabled(false);
+
+                            String Type = carType.getText().toString();
+                            String model = carModel.getText().toString();
+                            String carnumber = carNumber.getText().toString();
+                            String year = carYear.getText().toString();
+                            String gear = cargearbox.getText().toString();
+                            String engine = carengine_capacity.getText().toString();
+                            String miles = carmiles.getText().toString();
+                            String owner = carownership.getText().toString();
+                            String branch = carbarnch.getText().toString();
+                            String agent = caragent.getText().toString();
+                            String price = carprice.getText().toString();
+                            boolean forsale = carforsale.isChecked();
+                            boolean frotrade = carfortrade.isChecked();
+                            boolean discount = cardiscount.isChecked();
+                            boolean loveit = carloveit.isChecked();
+                            Log.d("TAG", "saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
+                            Car car = new Car(Type, model, carnumber, year, gear, engine, miles, owner, branch, agent, price, forsale, frotrade, discount, loveit ,taskSnapshot.getUploadSessionUri().toString());
+                            Model.instance.addCar(car);
+                            FirebaseUser user1 = mAuth.getCurrentUser();
+                            if(user1 != null){
+                                mDatabase.child(user1.getUid()).setValue(car);
+                                progressbar.setVisibility(View.GONE);
+
+                            }else {
+                                progressbar.setVisibility(View.GONE);
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            String s = "";
-                            // Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -229,9 +223,9 @@ public class AddCarFragment extends Fragment {
                             mProgressBar.setProgress((int) progress);
                         }
                     });
+            Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
         } else {
-            String s = "";
-            //Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -290,16 +284,6 @@ public class AddCarFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateUI(FirebaseUser user1, Car user){
 
-        if(user1 != null){
-            mDatabase.child("Posts").child(user1.getUid()).setValue(user);
-        //    progressBar.setVisibility(View.GONE);
-
-        }else {
-            String s = "";
-            //   progressBar.setVisibility(View.GONE);
-        }
-    }
 };
 
