@@ -182,23 +182,22 @@ public class AddCarFragment extends Fragment {
                             saveBtn.setEnabled(false);
                             cancelBtn.setEnabled(false);
 
-                            String Type = carType.getText().toString();
-                            String model = carModel.getText().toString();
-                            String carnumber = carNumber.getText().toString();
+                            String type = carType.getText().toString();
+                            String car_Model = carModel.getText().toString();
+                            String car_num = carNumber.getText().toString();
                             String year = carYear.getText().toString();
-                            String gear = cargearbox.getText().toString();
-                            String engine = carengine_capacity.getText().toString();
-                            String miles = carmiles.getText().toString();
-                            String owner = carownership.getText().toString();
-                            String branch = carbarnch.getText().toString();
-                            String agent = caragent.getText().toString();
-                            String price = carprice.getText().toString();
-                            boolean forsale = carforsale.isChecked();
-                            boolean frotrade = carfortrade.isChecked();
-                            boolean discount = cardiscount.isChecked();
-                            boolean loveit = carloveit.isChecked();
-                            Log.d("TAG", "saved Car-Type:" + Type + " Model:" + model + " Car-Number:" + carnumber + "Car-Year:" + year + "GearBox:" + gear + "Engine:" + engine + "Car-Miles:" + miles + "Owner:" + owner + "Branch:" + branch + "Agent:" + agent + "Price" + price + "Is For Sale? :" + forsale + "Is For Trade? :" + frotrade + "Is it in Discount? :" + discount + "Is Loved? :" + loveit);
-                            Car car = new Car(Type, model, carnumber, year, gear, engine, miles, owner, branch, agent, price, forsale, frotrade, discount, loveit ,taskSnapshot.getUploadSessionUri().toString());
+                            String Gearbox = cargearbox.getText().toString();
+                            String Engine_capacity = carengine_capacity.getText().toString();
+                            String Mileage = carmiles.getText().toString();
+                            String ownership = carownership.getText().toString();
+                            String Branch = carbarnch.getText().toString();
+                            String Agent_Phonenum = caragent.getText().toString();
+                            String Price = carprice.getText().toString();
+                            boolean for_Sale = carforsale.isChecked();
+                            boolean for_Tradein = carfortrade.isChecked();
+                            boolean Discount = cardiscount.isChecked();
+                            boolean Love_it = carloveit.isChecked();
+                            Car car = new Car(type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, for_Sale, for_Tradein, Discount, Love_it ,taskSnapshot.getUploadSessionUri().toString());
                             Model.instance.addCar(car);
                             FirebaseUser user1 = mAuth.getCurrentUser();
                             if(user1 != null){

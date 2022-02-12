@@ -1,6 +1,6 @@
 package com.PI_Motors;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,33 +8,34 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.squareup.picasso.Picasso;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
+
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.widget.ImageView;
+
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.List;
-import java.util.Random;
+
 
 
 public class
@@ -64,7 +65,6 @@ CarListFragment extends Fragment{
         list.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new MyAdapter();
-        list.setAdapter(adapter);
 
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -72,13 +72,11 @@ CarListFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Car car = postSnapshot.getValue(Car.class);
-
-                    Log.d("TAG","Looooooooookkkkkkkkkkkkkk hereeeeeeeeeeeeeee!!!!!!!!!!!!!!!!!" + car);
                     data.add(car);
                 }
 
                 mProgressCircle.setVisibility(View.INVISIBLE);
-                adapter = new MyAdapter();
+
                 list.setAdapter(adapter);
 
             }
@@ -122,6 +120,7 @@ CarListFragment extends Fragment{
         TextView CarType;
         TextView CarModel;
         TextView CarPrice;
+        public ImageView imageView;
 
 
 
@@ -130,6 +129,8 @@ CarListFragment extends Fragment{
             CarType = itemView.findViewById(R.id.car_type);
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);
+            imageView = itemView.findViewById(R.id.mercedes_avatar_imv);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -167,7 +168,10 @@ CarListFragment extends Fragment{
             holder.CarType.setText(car.getCar_Type());
             holder.CarModel.setText(car.getCar_Model());
             holder.CarPrice.setText(car.getPrice());
-
+            Log.d("TAG","image car  " + car.getCarImageUrl());
+            Picasso.get()
+                    .load(car.getCarImageUrl())
+                    .into(holder.imageView);
         }
 
         @Override

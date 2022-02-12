@@ -12,7 +12,7 @@ public class Car {
     String ownership = "";
     String Branch = "";
     String Agent_Phonenum = "";
-    private String mImageUrl;
+    private String carImageUrl;
 
 
     boolean for_Sale = false;
@@ -22,7 +22,7 @@ public class Car {
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String imageUrl) {
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String carImageUrl) {
         this.type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
@@ -38,7 +38,7 @@ public class Car {
         this.for_Tradein = car_fortrade;
         this.Discount = car_discount;
         this.Love_it = car_loveit;
-        this.mImageUrl = imageUrl;
+        this.carImageUrl = carImageUrl;
     }
 
     public void setType(String type) {
@@ -78,7 +78,7 @@ public class Car {
 
 
     public String getCarImageUrl() {
-        return mImageUrl;
+        return carImageUrl;
     }
     public String getCar_Type() {
         return type;
