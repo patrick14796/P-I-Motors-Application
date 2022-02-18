@@ -1,6 +1,8 @@
 package com.PI_Motors;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import android.util.Log;
@@ -34,6 +42,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -47,16 +57,16 @@ CarListFragment extends Fragment{
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseRef;
 
+    private StorageReference mStorageRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_car_list, container, false);
         mProgressCircle = view.findViewById(R.id.progress_circle);
-
         data = Model.instance.getAllCars();
         userUID = FirebaseAuth.getInstance().getUid();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(userUID);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
 
         RecyclerView list = view.findViewById(R.id.carlist_list_rv);
@@ -70,9 +80,12 @@ CarListFragment extends Fragment{
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                data.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Car car = postSnapshot.getValue(Car.class);
-                    data.add(car);
+                    for (DataSnapshot postpostSnap : postSnapshot.getChildren()) {
+                        Car car = postpostSnap.getValue(Car.class);
+                        data.add(car);
+                    }
                 }
 
                 mProgressCircle.setVisibility(View.INVISIBLE);
@@ -129,7 +142,7 @@ CarListFragment extends Fragment{
             CarType = itemView.findViewById(R.id.car_type);
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);
-            imageView = itemView.findViewById(R.id.mercedes_avatar_imv);
+            imageView = itemView.findViewById(R.id.Car_avatar_imv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -168,10 +181,29 @@ CarListFragment extends Fragment{
             holder.CarType.setText(car.getCar_Type());
             holder.CarModel.setText(car.getCar_Model());
             holder.CarPrice.setText(car.getPrice());
+
+            Log.d("TAG","Car Type: " + car.getCar_Type());
             Log.d("TAG","image car  " + car.getCarImageUrl());
-            Picasso.get()
-                    .load(car.getCarImageUrl())
-                    .into(holder.imageView);
+            mStorageRef = FirebaseStorage.getInstance().getReference().child(car.getCarImageUrl());
+            try {
+                final File localfile = File.createTempFile("car",""+car.getCarImageSuffix());
+                mStorageRef.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("TAG","IMG Load Succsessfuly");
+                        Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+                        holder.imageView.setImageBitmap(bitmap);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG","Fail To Load IMG!!!");
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
         @Override

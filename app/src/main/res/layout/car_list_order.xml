@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/mercedes_avatar_imv"
+        android:id="@+id/Car_avatar_imv"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"

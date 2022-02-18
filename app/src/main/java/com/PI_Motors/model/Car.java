@@ -1,7 +1,7 @@
 package com.PI_Motors.model;
 
 public class Car {
-    String type = "";
+    String car_Type = "";
     String car_Model = "";
     String car_num = "";
     String year = "";
@@ -12,7 +12,8 @@ public class Car {
     String ownership = "";
     String Branch = "";
     String Agent_Phonenum = "";
-    private String carImageUrl;
+    String carImageUrl;
+    String suffixUrlIMG;
 
 
     boolean for_Sale = false;
@@ -22,8 +23,8 @@ public class Car {
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String carImageUrl) {
-        this.type = car_type;
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String carImageUrl,String suffixUrlIMG) {
+        this.car_Type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
         this.year = car_year;
@@ -42,7 +43,7 @@ public class Car {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.car_Type = type;
     }
     public void set_CarModel(String car_Model) {
         this.car_Model = car_Model;
@@ -76,12 +77,12 @@ public class Car {
     public void set_Discount(boolean Discount) { this.Discount = Discount; }
     public void set_LoveIt(boolean Love_it) { this.Love_it = Love_it; }
 
-
+    public String getCarImageSuffix() {return suffixUrlIMG;}
     public String getCarImageUrl() {
         return carImageUrl;
     }
     public String getCar_Type() {
-        return type;
+        return car_Type;
     }
     public String getCar_Model() {
         return car_Model;

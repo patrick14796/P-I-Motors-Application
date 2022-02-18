@@ -167,6 +167,11 @@ public class AddCarFragment extends Fragment {
     private void uploadFile() {
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+            String IMGPATH = fileReference.toString();
+            String newIMG =IMGPATH.substring(28,IMGPATH.length());
+            String suffix = IMGPATH.substring(50,IMGPATH.length());
+            Log.d("TAG","Img Path " + newIMG);
+            Log.d("TAG","Img suffix " + suffix);
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -182,7 +187,7 @@ public class AddCarFragment extends Fragment {
                             saveBtn.setEnabled(false);
                             cancelBtn.setEnabled(false);
 
-                            String type = carType.getText().toString();
+                            String car_Type = carType.getText().toString();
                             String car_Model = carModel.getText().toString();
                             String car_num = carNumber.getText().toString();
                             String year = carYear.getText().toString();
@@ -197,7 +202,7 @@ public class AddCarFragment extends Fragment {
                             boolean for_Tradein = carfortrade.isChecked();
                             boolean Discount = cardiscount.isChecked();
                             boolean Love_it = carloveit.isChecked();
-                            Car car = new Car(type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, for_Sale, for_Tradein, Discount, Love_it ,taskSnapshot.getUploadSessionUri().toString());
+                            Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, for_Sale, for_Tradein, Discount, Love_it ,newIMG,suffix);
                             Model.instance.addCar(car);
                             FirebaseUser user1 = mAuth.getCurrentUser();
                             if(user1 != null){
