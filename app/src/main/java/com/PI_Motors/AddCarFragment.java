@@ -70,10 +70,7 @@ public class AddCarFragment extends Fragment {
     EditText carbarnch;
     EditText caragent;
     EditText carprice;
-    CheckBox carforsale;
-    CheckBox carfortrade;
-    CheckBox cardiscount;
-    CheckBox carloveit;
+
     Button AddImage;
     View view;
 
@@ -83,7 +80,6 @@ public class AddCarFragment extends Fragment {
     Button saveBtn;
     Button cancelBtn;
     private DatabaseReference mDatabase;
-    String userUID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,10 +99,7 @@ public class AddCarFragment extends Fragment {
         carbarnch = view.findViewById(R.id.carbranch_textview);
         caragent = view.findViewById(R.id.caragent_textview);
         carprice = view.findViewById(R.id.carprice_textview);
-        carforsale = view.findViewById(R.id.carforsale_checkbox);
-        carfortrade = view.findViewById(R.id.carfortrade_checkbox);
-        cardiscount = view.findViewById(R.id.cardiscount_checkbox);
-        carloveit = view.findViewById(R.id.carloveit_checkbox);
+
         progressbar = view.findViewById(R.id.main_progressbar);
         progressbar.setVisibility(View.GONE);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");;
@@ -197,16 +190,13 @@ public class AddCarFragment extends Fragment {
                             String Branch = carbarnch.getText().toString();
                             String Agent_Phonenum = caragent.getText().toString();
                             String Price = carprice.getText().toString();
-                            boolean for_Sale = carforsale.isChecked();
-                            boolean for_Tradein = carfortrade.isChecked();
-                            boolean Discount = cardiscount.isChecked();
-                            boolean Love_it = carloveit.isChecked();
-                            Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, for_Sale, for_Tradein, Discount, Love_it ,newIMG,suffix);
+
+                            Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, newIMG,suffix);
                             Model.instance.addCar(car);
                             FirebaseUser user1 = mAuth.getCurrentUser();
                             if(user1 != null){
                                 String uploadId = mDatabase.push().getKey();
-                                mDatabase.child(user1.getUid()).child(uploadId).setValue(car);
+                                mDatabase.child(user1.getUid()).child(car.getCar_num()).setValue(car);
                                 progressbar.setVisibility(View.GONE);
 
                             }else {

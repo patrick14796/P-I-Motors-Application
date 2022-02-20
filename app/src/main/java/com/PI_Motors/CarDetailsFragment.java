@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.navigation.Navigation;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +32,9 @@ public class CarDetailsFragment extends Fragment {
     TextView carownership;
     TextView carbarnch;
     TextView caragent;
-    CheckBox carforsale;
-    CheckBox carfortrade;
-    CheckBox cardiscount;
-    CheckBox carloveit;
-    TextView carprice;
 
+    TextView carprice;
+    ImageView carImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,14 +53,11 @@ public class CarDetailsFragment extends Fragment {
          carownership = view.findViewById(R.id.carowner_textview);
          carbarnch = view.findViewById(R.id.carbranch_textview);
          caragent = view.findViewById(R.id.caragent_textview);
-         carforsale = view.findViewById(R.id.carforsale_checkbox);
-         carfortrade = view.findViewById(R.id.carfortrade_checkbox);
-         cardiscount = view.findViewById(R.id.cardiscount_checkbox);
-         carloveit = view.findViewById(R.id.carloveit_checkbox);
+
          carprice = view.findViewById(R.id.carprice_textview);
+         carImage = view.findViewById(R.id.imageView2);
 
         String carNum = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarId();
-        int position = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarPosition();
         car = Model.instance.getCarById(carNum);
         if (car != null){
             updateDisplay(car);
@@ -84,10 +79,17 @@ public class CarDetailsFragment extends Fragment {
         carownership.setText(car.getOwnership());
         carbarnch.setText(car.getBranch());
         caragent.setText(car.getAgent_Phonenum());
-        carforsale.setChecked(car.isFor_Sale());
-        carfortrade.setChecked(car.isFor_Tradein());
-        cardiscount.setChecked(car.isDiscount());
-        carloveit.setChecked(car.isLove_it());
         carprice.setText(car.getPrice());
+       //need to implement image on car
+
+
     }
 }
+
+
+
+
+
+
+
+

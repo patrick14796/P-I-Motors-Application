@@ -16,14 +16,10 @@ public class Car {
     String suffixUrlIMG;
 
 
-    boolean for_Sale = false;
-    boolean for_Tradein = false;
-    boolean Discount = false;
-    boolean Love_it = false;
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,boolean car_forSale,boolean car_fortrade,boolean car_discount,boolean car_loveit,String carImageUrl,String suffixUrlIMG) {
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,String carImageUrl,String suffixUrlIMG) {
         this.car_Type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
@@ -35,10 +31,7 @@ public class Car {
         this.ownership = car_ownertype;
         this.Branch = car_brance;
         this.Agent_Phonenum = car_agentphone;
-        this.for_Sale = car_forSale;
-        this.for_Tradein = car_fortrade;
-        this.Discount = car_discount;
-        this.Love_it = car_loveit;
+
         this.carImageUrl = carImageUrl;
     }
 
@@ -72,10 +65,7 @@ public class Car {
         this.Agent_Phonenum = Agent_Phonenum;
     }
 
-    public void set_ForSale(boolean for_Sale) { this.for_Sale = for_Sale; }
-    public void set_ForTradein(boolean for_Tradein) { this.for_Tradein = for_Tradein; }
-    public void set_Discount(boolean Discount) { this.Discount = Discount; }
-    public void set_LoveIt(boolean Love_it) { this.Love_it = Love_it; }
+
 
     public String getCarImageSuffix() {return suffixUrlIMG;}
     public String getCarImageUrl() {
@@ -115,18 +105,6 @@ public class Car {
         return Agent_Phonenum;
     }
 
-    public boolean isFor_Sale() {
-        return for_Sale;
-    }
-    public boolean isFor_Tradein() {
-        return for_Tradein;
-    }
-    public boolean isDiscount() {
-        return Discount;
-    }
-    public boolean isLove_it() {
-        return Love_it;
-    }
 
 
 

@@ -104,7 +104,7 @@ public class MyCarListFragment extends Fragment {
             public void onItemClick(int position, View v) {
                 Car car = data.get(position);
                 Log.d("TAG","row was clicked " + position);
-                CarListFragmentDirections.ActionCarListFragmentToCarDetailsFragment action = CarListFragmentDirections.actionCarListFragmentToCarDetailsFragment(car.getCar_num(),position);
+                MyCarListFragmentDirections.ActionMyCarListFragmentToEditCarFragment action = MyCarListFragmentDirections.actionMyCarListFragmentToEditCarFragment(car.getCar_num());
                 Navigation.findNavController(v).navigate(action);
 
             }
