@@ -110,7 +110,6 @@ public class EditCarFragment extends Fragment {
         mDatabase.child(userUID).child(car.getCar_num()).child("branch").setValue(branch.getText().toString());
         mDatabase.child(userUID).child(car.getCar_num()).child("car_Type").setValue(car_Type.getText().toString());
         mDatabase.child(userUID).child(car.getCar_num()).child("car_Model").setValue(car_Model.getText().toString());
-        mDatabase.child(userUID).child(car.getCar_num()).child("car_num").setValue(car_num);
         mDatabase.child(userUID).child(car.getCar_num()).child("price").setValue(price);
         mDatabase.child(userUID).child(car.getCar_num()).child("ownership").setValue(ownership);
         mDatabase.child(userUID).child(car.getCar_num()).child("mileage").setValue(mileage);

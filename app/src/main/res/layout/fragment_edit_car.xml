@@ -245,7 +245,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toEndOf="@+id/textView6"/>
 
-    <EditText
+    <TextView
         android:id="@+id/carnumber_textview"
         android:layout_width="233dp"
         android:layout_height="30dp"

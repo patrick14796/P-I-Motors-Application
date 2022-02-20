@@ -32,16 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
-
         signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
-
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
-
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 

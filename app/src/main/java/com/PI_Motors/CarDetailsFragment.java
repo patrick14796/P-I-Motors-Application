@@ -1,5 +1,7 @@
 package com.PI_Motors;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,9 @@ import android.widget.Toast;
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
 
+import java.io.File;
+import java.io.IOException;
+
 public class CarDetailsFragment extends Fragment {
     Car car;
     TextView carType;
@@ -32,7 +37,7 @@ public class CarDetailsFragment extends Fragment {
     TextView carownership;
     TextView carbarnch;
     TextView caragent;
-
+    File localfile;
     TextView carprice;
     ImageView carImage;
 
@@ -53,9 +58,10 @@ public class CarDetailsFragment extends Fragment {
          carownership = view.findViewById(R.id.carowner_textview);
          carbarnch = view.findViewById(R.id.carbranch_textview);
          caragent = view.findViewById(R.id.caragent_textview);
-
          carprice = view.findViewById(R.id.carprice_textview);
          carImage = view.findViewById(R.id.imageView2);
+
+
 
         String carNum = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarId();
         car = Model.instance.getCarById(carNum);
