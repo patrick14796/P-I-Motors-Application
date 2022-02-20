@@ -53,6 +53,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 
+
+        checkIfuserLoggedIn();
+
+    }
+
+    private void checkIfuserLoggedIn() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            Log.d("TAG","USER NOT NULL");
+            Intent fromMainToProfile = new Intent(MainActivity.this,profileActivity.class);
+            startActivity(fromMainToProfile);
+            progressBar.setVisibility(View.GONE);
+        } else{
+            Log.d("TAG","USER NULL");
+            Intent i = new Intent(this, MainActivity.class);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -108,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Intent fromMainToProfile = new Intent(MainActivity.this,profileActivity.class);
-                    String userUID = FirebaseAuth.getInstance().getUid();
-                    fromMainToProfile.putExtra("userUID" , userUID );
                     startActivity(fromMainToProfile);
                     progressBar.setVisibility(View.GONE);
                 }else{

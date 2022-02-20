@@ -19,9 +19,7 @@ public class profileActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         setContentView(R.layout.activity_profile);
         Intent getFromMainToProfile = getIntent();
-        String userUID = getFromMainToProfile.getStringExtra("userUID");
         Intent fromProfileToBase = new Intent(profileActivity.this,BaseActivity.class);
-        fromProfileToBase.putExtra("userUID" , userUID );
         startActivity(fromProfileToBase);
     }
 
@@ -36,6 +34,7 @@ public class profileActivity extends AppCompatActivity {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        FirebaseAuth.getInstance().signOut();
                         dialog.cancel();
                         finish();
                     }

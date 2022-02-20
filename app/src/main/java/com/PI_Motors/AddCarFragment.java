@@ -121,7 +121,6 @@ public class AddCarFragment extends Fragment {
                 uploadFile();
             }
         });
-        userUID = AddCarFragmentArgs.fromBundle(getArguments()).getUserUID();
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_addCarFragment_to_carListFragment));
 
         AddImage.setOnClickListener(new View.OnClickListener(){

@@ -1,5 +1,6 @@
 package com.PI_Motors;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -50,7 +53,8 @@ public class BaseActivity extends AppCompatActivity {
                     navCtrl.navigate(R.id.myCarListFragment);
                     return true;
                 case R.id.log_out:
-
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(BaseActivity.this, MainActivity.class));
                     return true;
                 default:
                     return NavigationUI.onNavDestinationSelected(item, navCtrl);
