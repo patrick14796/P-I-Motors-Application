@@ -25,6 +25,7 @@ import com.PI_Motors.model.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,9 +47,8 @@ public class MyCarListFragment extends Fragment {
     String userUID;
     private ProgressBar mProgressCircle;
     private DatabaseReference mDatabaseRef;
-
     private StorageReference mStorageRef;
-
+    private FirebaseUser user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +56,8 @@ public class MyCarListFragment extends Fragment {
         mProgressCircle = view.findViewById(R.id.progress_circle);
         data = Model.instance.getAllCars();
         userUID = FirebaseAuth.getInstance().getUid();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads").child(userUID);
 
 

@@ -66,6 +66,7 @@ CarListFragment extends Fragment{
         mProgressCircle = view.findViewById(R.id.progress_circle);
         data = Model.instance.getAllCars();
         userUID = FirebaseAuth.getInstance().getUid();
+        Log.d("TAG","UID IS in carlist...." + userUID);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
 

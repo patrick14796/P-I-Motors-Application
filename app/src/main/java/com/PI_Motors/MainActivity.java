@@ -6,20 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("TAG","USER NOT NULL");
             Intent fromMainToProfile = new Intent(MainActivity.this,profileActivity.class);
             startActivity(fromMainToProfile);
+            finish();
             progressBar.setVisibility(View.GONE);
         } else{
             Log.d("TAG","USER NULL");
