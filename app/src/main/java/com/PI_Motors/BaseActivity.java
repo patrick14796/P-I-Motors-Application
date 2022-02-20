@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
                     navCtrl.navigate(R.id.carListFragment);
                     return true;
                 case R.id.my_posts:
-                    navCtrl.navigate(R.id.editCarFragment);
+                    navCtrl.navigate(R.id.myCarListFragment);
                     return true;
                 case R.id.log_out:
 
