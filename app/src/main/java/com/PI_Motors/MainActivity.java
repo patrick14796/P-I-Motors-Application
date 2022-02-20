@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressBar.setVisibility(View.GONE);
         } else{
             Log.d("TAG","USER NULL");
-            Intent i = new Intent(this, MainActivity.class);
             progressBar.setVisibility(View.GONE);
         }
     }
