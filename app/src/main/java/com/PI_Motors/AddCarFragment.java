@@ -157,69 +157,77 @@ public class AddCarFragment extends Fragment {
 
 
     private void uploadFile() {
-        if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
-            String IMGPATH = fileReference.toString();
-            String newIMG =IMGPATH.substring(28,IMGPATH.length());
-            String suffix = IMGPATH.substring(50,IMGPATH.length());
-            Log.d("TAG","Img Path " + newIMG);
-            Log.d("TAG","Img suffix " + suffix);
-            mUploadTask = fileReference.putFile(mImageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mProgressBar.setProgress(0);
-                                }
-                            }, 500);
-                            progressbar.setVisibility(View.VISIBLE);
-                            saveBtn.setEnabled(false);
-                            cancelBtn.setEnabled(false);
 
-                            String car_Type = carType.getText().toString();
-                            String car_Model = carModel.getText().toString();
-                            String car_num = carNumber.getText().toString();
-                            String year = carYear.getText().toString();
-                            String Gearbox = cargearbox.getText().toString();
-                            String Engine_capacity = carengine_capacity.getText().toString();
-                            String Mileage = carmiles.getText().toString();
-                            String ownership = carownership.getText().toString();
-                            String Branch = carbarnch.getText().toString();
-                            String Agent_Phonenum = caragent.getText().toString();
-                            String Price = carprice.getText().toString();
-
-                            Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, newIMG,suffix);
-                            Model.instance.addCar(car);
-                            FirebaseUser user1 = mAuth.getCurrentUser();
-                            if(user1 != null){
-                                String uploadId = mDatabase.push().getKey();
-                                mDatabase.child(user1.getUid()).child(car.getCar_num()).setValue(car);
-                                progressbar.setVisibility(View.GONE);
-
-                            }else {
-                                progressbar.setVisibility(View.GONE);
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mProgressBar.setProgress((int) progress);
-                        }
-                    });
-            Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
+        if (carNumber.getText().toString().isEmpty()) {
+            carNumber.setError("Car Number is required!");
+            carNumber.requestFocus();
         } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+
+
+            if (mImageUri != null) {
+                StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+                String IMGPATH = fileReference.toString();
+                String newIMG = IMGPATH.substring(28, IMGPATH.length());
+                String suffix = IMGPATH.substring(50, IMGPATH.length());
+                Log.d("TAG", "Img Path " + newIMG);
+                Log.d("TAG", "Img suffix " + suffix);
+                mUploadTask = fileReference.putFile(mImageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mProgressBar.setProgress(0);
+                                    }
+                                }, 500);
+                                progressbar.setVisibility(View.VISIBLE);
+                                saveBtn.setEnabled(false);
+                                cancelBtn.setEnabled(false);
+
+                                String car_Type = carType.getText().toString();
+                                String car_Model = carModel.getText().toString();
+                                String car_num = carNumber.getText().toString();
+                                String year = carYear.getText().toString();
+                                String Gearbox = cargearbox.getText().toString();
+                                String Engine_capacity = carengine_capacity.getText().toString();
+                                String Mileage = carmiles.getText().toString();
+                                String ownership = carownership.getText().toString();
+                                String Branch = carbarnch.getText().toString();
+                                String Agent_Phonenum = caragent.getText().toString();
+                                String Price = carprice.getText().toString();
+
+                                Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, newIMG, suffix);
+                                Model.instance.addCar(car);
+                                FirebaseUser user1 = mAuth.getCurrentUser();
+                                if (user1 != null) {
+                                    String uploadId = mDatabase.push().getKey();
+                                    mDatabase.child(user1.getUid()).child(car.getCar_num()).setValue(car);
+                                    progressbar.setVisibility(View.GONE);
+
+                                } else {
+                                    progressbar.setVisibility(View.GONE);
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                mProgressBar.setProgress((int) progress);
+                            }
+                        });
+                Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
+            } else {
+                Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
