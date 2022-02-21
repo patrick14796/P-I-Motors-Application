@@ -36,8 +36,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -126,9 +130,35 @@ public class EditCarFragment extends Fragment {
                 openSomeActivityForResult();
             }
         });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeData();
+            }
+        });
         return view;
     }
 
+    public void removeData(){
+        //mDatabase.child(userUID).removeValue().equals(this.car.getCar_num());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query ToRemoveQuery = ref.child("uploads").child(userUID).orderByChild("car_num").equalTo(this.car.getCar_num());
+        ToRemoveQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot RemoveSnapshot: dataSnapshot.getChildren()) {
+                    RemoveSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("TAG","Error On Delete ");
+            }
+        });
+        Navigation.findNavController(this.getView()).navigateUp();
+    }
 
     public void GoBack(){
         Navigation.findNavController(this.getView()).navigateUp();
