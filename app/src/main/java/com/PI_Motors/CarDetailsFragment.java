@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +36,6 @@ public class CarDetailsFragment extends Fragment {
     TextView carengine_capacity;
     TextView carmiles;
     TextView carownership;
-    TextView carbarnch;
     TextView caragent;
     File localfile;
     TextView carprice;
@@ -56,11 +56,9 @@ public class CarDetailsFragment extends Fragment {
          carengine_capacity = view.findViewById(R.id.carcapacity_textview);
          carmiles = view.findViewById(R.id.carmiles_textview);
          carownership = view.findViewById(R.id.carowner_textview);
-         carbarnch = view.findViewById(R.id.carbranch_textview);
          caragent = view.findViewById(R.id.caragent_textview);
          carprice = view.findViewById(R.id.carprice_textview);
          carImage = view.findViewById(R.id.imageView2);
-
 
 
         String carNum = CarDetailsFragmentArgs.fromBundle(getArguments()).getCarId();
@@ -83,10 +81,14 @@ public class CarDetailsFragment extends Fragment {
         carengine_capacity.setText(car.getEngine_capacity());
         carmiles.setText(car.getMileage());
         carownership.setText(car.getOwnership());
-        carbarnch.setText(car.getBranch());
         caragent.setText(car.getAgent_Phonenum());
         carprice.setText(car.getPrice());
-       //need to implement image on car
+        Picasso.get()
+                .load(car.getCarImageUrl())
+                .resize(50, 50)
+                .centerCrop()
+                .into(carImage);
+
 
 
     }

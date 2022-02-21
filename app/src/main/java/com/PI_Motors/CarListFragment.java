@@ -3,6 +3,7 @@ package com.PI_Motors;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -64,6 +66,7 @@ CarListFragment extends Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_car_list, container, false);
         mProgressCircle = view.findViewById(R.id.progress_circle);
+        mProgressCircle.setVisibility(View.GONE);
         data = Model.instance.getAllCars();
         userUID = FirebaseAuth.getInstance().getUid();
         Log.d("TAG","UID IS in carlist...." + userUID);
@@ -88,9 +91,6 @@ CarListFragment extends Fragment{
                         data.add(car);
                     }
                 }
-
-                mProgressCircle.setVisibility(View.INVISIBLE);
-
                 list.setAdapter(adapter);
 
             }
@@ -144,7 +144,6 @@ CarListFragment extends Fragment{
             CarModel = itemView.findViewById(R.id.car_model);
             CarPrice = itemView.findViewById(R.id.car_price);
             imageView = itemView.findViewById(R.id.Car_avatar_imv);
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,29 +181,11 @@ CarListFragment extends Fragment{
             holder.CarType.setText(car.getCar_Type());
             holder.CarModel.setText(car.getCar_Model());
             holder.CarPrice.setText(car.getPrice());
-
-            Log.d("TAG","Car Type: " + car.getCar_Type());
-            Log.d("TAG","image car  " + car.getCarImageUrl());
-            mStorageRef = FirebaseStorage.getInstance().getReference().child(car.getCarImageUrl());
-            try {
-                final File localfile = File.createTempFile("car",""+car.getCarImageSuffix());
-                mStorageRef.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("TAG","IMG Load Succsessfuly");
-                        Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                        holder.imageView.setImageBitmap(bitmap);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG","Fail To Load IMG!!!");
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            Picasso.get()
+                    .load(car.getCarImageUrl())
+                    .resize(50, 50)
+                    .centerCrop()
+                    .into(holder.imageView);
         }
 
         @Override

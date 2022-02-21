@@ -58,5 +58,8 @@
         <action
             android:id="@+id/action_myCarListFragment_to_editCarFragment"
             app:destination="@id/editCarFragment" />
+        <argument
+            android:name="carID"
+            app:argType="string" />
     </fragment>
 </navigation>

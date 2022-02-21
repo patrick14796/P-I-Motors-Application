@@ -10,16 +10,15 @@ public class Car {
     String Engine_capacity = "";
     String Mileage = "";
     String ownership = "";
-    String Branch = "";
     String Agent_Phonenum = "";
-    String carImageUrl;
-    String suffixUrlIMG;
+    String carImageUrl = "";
+    String suffixUrlIMG = "";
 
 
 
     public Car(){}
 
-    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_brance, String car_agentphone,String car_price,String carImageUrl,String suffixUrlIMG) {
+    public Car(String car_type, String car_model, String car_number, String car_year, String car_gearbox, String engine_cap, String car_miles, String car_ownertype, String car_agentphone,String car_price,String carImageUrl,String suffixUrlIMG) {
         this.car_Type = car_type;
         this.car_Model = car_model;
         this.car_num = car_number;
@@ -29,7 +28,6 @@ public class Car {
         this.Engine_capacity = engine_cap;
         this.Mileage = car_miles;
         this.ownership = car_ownertype;
-        this.Branch = car_brance;
         this.Agent_Phonenum = car_agentphone;
 
         this.carImageUrl = carImageUrl;
@@ -58,13 +56,10 @@ public class Car {
     public void set_ownership(String ownership) {
         this.ownership = ownership;
     }
-    public void set_Branch(String Branch) {
-        this.Branch = Branch;
-    }
     public void set_AgentPhonenum(String Agent_Phonenum) {
         this.Agent_Phonenum = Agent_Phonenum;
     }
-
+    public void set_carUrl(String carurl) {this.carImageUrl = carurl;}
 
 
     public String getCarImageSuffix() {return suffixUrlIMG;}
@@ -97,9 +92,6 @@ public class Car {
     }
     public String getOwnership() {
         return ownership;
-    }
-    public String getBranch() {
-        return Branch;
     }
     public String getAgent_Phonenum() {
         return Agent_Phonenum;

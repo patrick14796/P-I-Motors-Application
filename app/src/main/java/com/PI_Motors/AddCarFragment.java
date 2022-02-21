@@ -38,8 +38,10 @@ import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +60,9 @@ public class AddCarFragment extends Fragment {
     private StorageTask mUploadTask;
     private StorageReference mStorageRef;
     private ProgressBar mProgressBar;
+    String URIT;
+    String USERID = FirebaseAuth.getInstance().getUid();
+    Car car;
 
     EditText carType;
     EditText carModel;
@@ -67,7 +72,6 @@ public class AddCarFragment extends Fragment {
     EditText carengine_capacity;
     EditText carmiles;
     EditText carownership;
-    EditText carbarnch;
     EditText caragent;
     EditText carprice;
 
@@ -86,7 +90,7 @@ public class AddCarFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_add_car, container, false);
         setHasOptionsMenu(true);
-        mProgressBar = view.findViewById(R.id.progress_bar);
+        mProgressBar = view.findViewById(R.id.main_progressbar);
         mImageView = view.findViewById(R.id.imageView2);
         carType = view.findViewById(R.id.cartype_textview);
         carModel = view.findViewById(R.id.carmodel_textview);
@@ -96,7 +100,6 @@ public class AddCarFragment extends Fragment {
         carengine_capacity = view.findViewById(R.id.carcapacity_textview);
         carmiles = view.findViewById(R.id.carmiles_textview);
         carownership = view.findViewById(R.id.carowner_textview);
-        carbarnch = view.findViewById(R.id.carbranch_textview);
         caragent = view.findViewById(R.id.caragent_textview);
         carprice = view.findViewById(R.id.carprice_textview);
 
@@ -167,10 +170,7 @@ public class AddCarFragment extends Fragment {
             if (mImageUri != null) {
                 StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
                 String IMGPATH = fileReference.toString();
-                String newIMG = IMGPATH.substring(28, IMGPATH.length());
                 String suffix = IMGPATH.substring(50, IMGPATH.length());
-                Log.d("TAG", "Img Path " + newIMG);
-                Log.d("TAG", "Img suffix " + suffix);
                 mUploadTask = fileReference.putFile(mImageUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -194,11 +194,11 @@ public class AddCarFragment extends Fragment {
                                 String Engine_capacity = carengine_capacity.getText().toString();
                                 String Mileage = carmiles.getText().toString();
                                 String ownership = carownership.getText().toString();
-                                String Branch = carbarnch.getText().toString();
                                 String Agent_Phonenum = caragent.getText().toString();
                                 String Price = carprice.getText().toString();
 
-                                Car car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Branch, Agent_Phonenum, Price, newIMG, suffix);
+
+                                car = new Car(car_Type, car_Model, car_num, year, Gearbox, Engine_capacity, Mileage, ownership, Agent_Phonenum, Price,IMGPATH, suffix);
                                 Model.instance.addCar(car);
                                 FirebaseUser user1 = mAuth.getCurrentUser();
                                 if (user1 != null) {
@@ -223,6 +223,23 @@ public class AddCarFragment extends Fragment {
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                                 mProgressBar.setProgress((int) progress);
                             }
+                        }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                Task<Uri> urix = FirebaseStorage.getInstance().getReferenceFromUrl(IMGPATH).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        URIT = uri.toString();
+                                        mDatabase.child(USERID).child(car.getCar_num()).child("carImageUrl").setValue(URIT);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("TAG","Fail");
+                                    }
+                                });
+                            }
+
                         });
                 Navigation.findNavController(this.getView()).navigateUp(); /*Need To Remove From Here and insert Car by FireBase */
             } else {
