@@ -10,6 +10,7 @@
         android:id="@+id/carprice_textview"
         android:layout_width="198dp"
         android:layout_height="61dp"
+        android:gravity="center"
         android:background="@drawable/circle_textview"
 
         android:textSize="24sp"

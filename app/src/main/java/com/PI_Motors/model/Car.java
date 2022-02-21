@@ -6,11 +6,11 @@ public class Car {
     String car_num = "";
     String year = "";
     String Price = "";
-    String Gearbox = "";
-    String Engine_capacity = "";
-    String Mileage = "";
+    String gearbox = "";
+    String engine_capacity = "";
+    String mileage = "";
     String ownership = "";
-    String Agent_Phonenum = "";
+    String agent_Phonenum = "";
     String carImageUrl = "";
     String suffixUrlIMG = "";
 
@@ -24,11 +24,11 @@ public class Car {
         this.car_num = car_number;
         this.year = car_year;
         this.Price = car_price;
-        this.Gearbox = car_gearbox;
-        this.Engine_capacity = engine_cap;
-        this.Mileage = car_miles;
+        this.gearbox = car_gearbox;
+        this.engine_capacity = engine_cap;
+        this.mileage = car_miles;
         this.ownership = car_ownertype;
-        this.Agent_Phonenum = car_agentphone;
+        this.agent_Phonenum = car_agentphone;
 
         this.carImageUrl = carImageUrl;
     }
@@ -47,17 +47,17 @@ public class Car {
     }
     public void setPrice(String Price) {this.Price = Price; }
     public void set_Gearbox(String Gearbox) {
-        this.Gearbox = Gearbox;
+        this.gearbox = Gearbox;
     }
-    public void set_EngineCapacity(String Engine_capacity) {this.Engine_capacity = Engine_capacity; }
+    public void set_EngineCapacity(String Engine_capacity) {this.engine_capacity = Engine_capacity; }
     public void set_Mileage(String Mileage) {
-        this.Mileage = Mileage;
+        this.mileage = Mileage;
     }
     public void set_ownership(String ownership) {
         this.ownership = ownership;
     }
     public void set_AgentPhonenum(String Agent_Phonenum) {
-        this.Agent_Phonenum = Agent_Phonenum;
+        this.agent_Phonenum = Agent_Phonenum;
     }
     public void set_carUrl(String carurl) {this.carImageUrl = carurl;}
 
@@ -82,19 +82,19 @@ public class Car {
         return Price;
     }
     public String getGearbox() {
-        return Gearbox;
+        return gearbox;
     }
     public String getEngine_capacity() {
-        return Engine_capacity;
+        return engine_capacity;
     }
     public String getMileage() {
-        return Mileage;
+        return mileage;
     }
     public String getOwnership() {
         return ownership;
     }
     public String getAgent_Phonenum() {
-        return Agent_Phonenum;
+        return agent_Phonenum;
     }
 
 

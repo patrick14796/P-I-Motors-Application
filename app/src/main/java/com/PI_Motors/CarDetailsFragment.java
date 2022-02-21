@@ -32,7 +32,7 @@ public class CarDetailsFragment extends Fragment {
     TextView carModel;
     TextView carNumber;
     TextView carYear;
-    TextView cargearbox;
+    TextView gearbox;
     TextView carengine_capacity;
     TextView carmiles;
     TextView carownership;
@@ -52,7 +52,7 @@ public class CarDetailsFragment extends Fragment {
          carModel = view.findViewById(R.id.carmodel_textview);
          carNumber = view.findViewById(R.id.carnumber_textview);
          carYear = view.findViewById(R.id.caryear_textview);
-         cargearbox = view.findViewById(R.id.cargear_textview);
+         gearbox = view.findViewById(R.id.cargear_textview);
          carengine_capacity = view.findViewById(R.id.carcapacity_textview);
          carmiles = view.findViewById(R.id.carmiles_textview);
          carownership = view.findViewById(R.id.carowner_textview);
@@ -77,7 +77,7 @@ public class CarDetailsFragment extends Fragment {
         carModel.setText(car.getCar_Model());
         carNumber.setText(car.getCar_num());
         carYear.setText(car.getYear());
-        cargearbox.setText(car.getGearbox());
+        gearbox.setText(car.getGearbox());
         carengine_capacity.setText(car.getEngine_capacity());
         carmiles.setText(car.getMileage());
         carownership.setText(car.getOwnership());
