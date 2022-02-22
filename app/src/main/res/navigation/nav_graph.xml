@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/carListFragment"
         android:name="com.PI_Motors.CarListFragment"
-        android:label="fragment_car_list"
+        android:label="All Posts"
         tools:layout="@layout/fragment_car_list">
         <action
             android:id="@+id/action_carListFragment_to_carDetailsFragment"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/addCarFragment"
         android:name="com.PI_Motors.AddCarFragment"
-        android:label="fragment_add_car"
+        android:label="Add new car"
         tools:layout="@layout/fragment_add_car" >
         <action
             android:id="@+id/action_addCarFragment_to_carListFragment"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/editCarFragment"
         android:name="com.PI_Motors.EditCarFragment"
-        android:label="fragment_edit_car"
+        android:label="Edit Car"
         tools:layout="@layout/fragment_edit_car" >
         <argument
             android:name="carId"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/myCarListFragment"
         android:name="com.PI_Motors.MyCarListFragment"
-        android:label="fragment_my_car_list"
+        android:label="My posts"
         tools:layout="@layout/fragment_my_car_list" >
         <action
             android:id="@+id/action_myCarListFragment_to_editCarFragment"
