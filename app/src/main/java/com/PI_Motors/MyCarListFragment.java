@@ -70,6 +70,7 @@ public class MyCarListFragment extends Fragment {
         adapter = new MyCarListFragment.MyAdapter();
 
 
+
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -114,8 +115,7 @@ public class MyCarListFragment extends Fragment {
         });
 
         ImageButton addBtn = view.findViewById(R.id.cartlist_add_btn);
-        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(CarListFragmentDirections.actionCarListFragmentToAddCarFragment()));
-
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(MyCarListFragmentDirections.actionMyCarListFragmentToAddCarFragment()));
         return view;
     }
 

@@ -49,13 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkIfuserLoggedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null){
-            Log.d("TAG","USER NOT NULL");
             Intent fromMainToProfile = new Intent(MainActivity.this,profileActivity.class);
             startActivity(fromMainToProfile);
             finish();
             progressBar.setVisibility(View.GONE);
         } else{
-            Log.d("TAG","USER NULL");
             progressBar.setVisibility(View.GONE);
         }
     }

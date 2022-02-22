@@ -61,5 +61,8 @@
         <argument
             android:name="carID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_myCarListFragment_to_addCarFragment"
+            app:destination="@id/addCarFragment" />
     </fragment>
 </navigation>
