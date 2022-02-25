@@ -2,8 +2,11 @@ package com.PI_Motors;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import com.PI_Motors.model.Model;
 import com.PI_Motors.model.Car;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -87,7 +91,22 @@ public class CarDetailsFragment extends Fragment {
                 .load(car.getCarImageUrl())
                 .resize(50, 50)
                 .centerCrop()
-                .into(carImage);
+                .into(carImage,new Callback(){
+
+                    @Override
+                    public void onSuccess() {
+                        Bitmap imageBitmap = ((BitmapDrawable) carImage.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                        imageDrawable.setCircular(true);
+                        imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                        carImage.setImageDrawable(imageDrawable);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        carImage.setImageResource(R.drawable.unknowncar);
+                    }
+                });
 
 
 

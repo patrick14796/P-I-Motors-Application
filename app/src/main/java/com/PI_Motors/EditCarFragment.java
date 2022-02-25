@@ -3,6 +3,8 @@ package com.PI_Motors;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +13,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -47,6 +51,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -174,7 +179,26 @@ public class EditCarFragment extends Fragment {
                         // There are no request codes
                         Intent data = result.getData();
                         editImageUri = data.getData();
-                        Picasso.get().load(editImageUri).into(carimg);
+                        Picasso.get()
+                                .load(editImageUri)
+                                .resize(50, 50)
+                                .centerCrop()
+                                .into(carimg,new Callback(){
+
+                                    @Override
+                                    public void onSuccess() {
+                                        Bitmap imageBitmap = ((BitmapDrawable) carimg.getDrawable()).getBitmap();
+                                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                                        imageDrawable.setCircular(true);
+                                        imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                                        carimg.setImageDrawable(imageDrawable);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        carimg.setImageResource(R.drawable.unknowncar);
+                                    }
+                                });
                     }
                 }
             });
@@ -208,7 +232,22 @@ public class EditCarFragment extends Fragment {
                 .load(car.getCarImageUrl())
                 .resize(50, 50)
                 .centerCrop()
-                .into(carimg);
+                .into(carimg,new Callback(){
+
+                    @Override
+                    public void onSuccess() {
+                        Bitmap imageBitmap = ((BitmapDrawable) carimg.getDrawable()).getBitmap();
+                        RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                        imageDrawable.setCircular(true);
+                        imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                        carimg.setImageDrawable(imageDrawable);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        carimg.setImageResource(R.drawable.unknowncar);
+                    }
+                });
     }
 
     private void updateCarFirebase(Car car){

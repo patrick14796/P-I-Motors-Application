@@ -3,10 +3,13 @@ package com.PI_Motors;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import android.util.Log;
@@ -185,7 +189,25 @@ CarListFragment extends Fragment{
                     .load(car.getCarImageUrl())
                     .resize(50, 50)
                     .centerCrop()
-                    .into(holder.imageView);
+                    .into(holder.imageView,new Callback(){
+
+                        @Override
+                        public void onSuccess() {
+                            Bitmap imageBitmap = ((BitmapDrawable) holder.imageView.getDrawable()).getBitmap();
+                            RoundedBitmapDrawable imageDrawable = RoundedBitmapDrawableFactory.create(getResources(), imageBitmap);
+                            imageDrawable.setCircular(true);
+                            imageDrawable.setCornerRadius(Math.max(imageBitmap.getWidth(), imageBitmap.getHeight()) / 2.0f);
+                            holder.imageView.setImageDrawable(imageDrawable);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            holder.imageView.setImageResource(R.drawable.unknowncar);
+                        }
+                    });
+
+
+
         }
 
         @Override
